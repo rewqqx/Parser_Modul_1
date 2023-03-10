@@ -1,5 +1,11 @@
 import re
+import os
+
+
+
 import aspose.words as aw
+
+import json
 
 
 def pdf2html(path_to_file, file):
@@ -14,6 +20,20 @@ def doc2html(path_to_file, file):
     doc.save(f"{path_to_file}/{file}.html")
     file = open(f"{path_to_file}/{file}.html")
     return clean_ad(file.read())
+
+
+def djvu2txt(path_to_file, file):
+    s = f"djvused {path_to_file}//{file}.djvu -e print-pure-txt > {path_to_file}//{file}.txt"
+    os.system(s)
+    f = open(f"{path_to_file}//{file}.txt")
+    txt = f.read()
+    return txt
+
+
+def txt2json(text, path_to_file, file):
+    json_data = {"raw_text": text}
+    with open(f"{path_to_file}/{file}.json", "w", encoding='utf-8') as f:
+        json.dump(json_data, f)
 
 
 def clean_ad(text):

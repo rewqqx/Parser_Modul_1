@@ -1,7 +1,7 @@
 import json
 
 from bs4 import BeautifulSoup
-from files import clean_text, pdf2html, doc2html
+from files import clean_text, pdf2html, doc2html, djvu2txt
 
 
 class HTMLparser():
@@ -24,7 +24,3 @@ class HTMLparser():
         with open(f"{output}/{filename}.json", "w", encoding='utf-8') as f:
             json.dump(json_data, f, indent=4, ensure_ascii=False)
 
-
-file = open("../files/output.html")
-
-HTMLparser(pdf2html('../files', 'sample')).save_to_json('sample', '../files')
