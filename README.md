@@ -12,6 +12,14 @@
 ### Для обработки .djvu необходим инструмент [DjVuLibre](https://djvu.sourceforge.net/)
 Необходимо установить [DjVuLibre](https://djvu.sourceforge.net/) и в PATH прописать путь до djvused.
 
+## Console
+
+```
+> python parser.py
+Path to file input: path/to/file.ext
+Path to file output: path/to/file.json
+```
+
 ## Tests
 
 ### Requirements
