@@ -1,0 +1,9 @@
+.hypothesis
+*.json
+*.html
+*.txt
+!requirements.txt
+*.pdf
+*.png
+.idea
+__pycache__

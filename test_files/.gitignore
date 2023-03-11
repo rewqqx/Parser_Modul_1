@@ -1,0 +1,12 @@
+*
+!.gitignore
+!empty_doc.doc
+!empty_pdf.pdf
+!expected_doc.html
+!test_djvu.djvu
+!test_html.html
+!empty_html.html
+!expected_djvu.txt
+!expected_pdf.html
+!test_doc.doc
+!test_pdf.pdf
