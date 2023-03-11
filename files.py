@@ -1,8 +1,6 @@
 import re
 import os
 
-
-
 import aspose.words as aw
 
 import json
@@ -11,7 +9,7 @@ import json
 def pdf2html(path_to_file, file):
     doc = aw.Document(f"{path_to_file}/{file}.pdf")
     doc.save(f"{path_to_file}/{file}.html")
-    file = open("../files/output.html")
+    file = open(f"{path_to_file}/{file}.html")
     return clean_ad(file.read())
 
 
