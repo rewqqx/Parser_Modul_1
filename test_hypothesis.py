@@ -139,7 +139,8 @@ class HtmlTestCases(unittest.TestCase):
     @given(st.just(empty_text_file_name))
     @settings(deadline=None)
     def test_empty_file_empty_content(self, test_file_name):
-        html = HTMLparser(open(test_file_name).read())
+        with open(test_file_name) as f:
+            html = HTMLparser(f.read())
         self.assertEqual(clean_ad(html.clean_text).replace('\xa0', ''), '')
 
 
