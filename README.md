@@ -23,7 +23,7 @@ Path to file output: path/to/file.json
 ## Tests
 
 ### Requirements
-1. hypothesis
+1. [Hypothesis](https://hypothesis.readthedocs.io/en/latest/)
 
 ### How to Run
 1. Убедиться в наличии библиотеки
@@ -33,7 +33,7 @@ Path to file output: path/to/file.json
 ### Test Cases
 Суммарно 15 кейсов  
 Среди которых пребор значение с помощью hypothesis,  
-Проверка заранее заданных кейсов
+Проверка заранее заданных кейсов  
 Проверка отдельных функций
 
 ### Test cases short-list
@@ -73,6 +73,12 @@ Path to file output: path/to/file.json
 
 3. 11 march (15 / 15 success)  
 Запуск всех тестов, все ошибки почищены. Остались мелкие проблемы: например, наличие абсолютных ссылок в вызовах из файла main
+
+4. 11 march (7 / 15 success)
+Были переписаны методы, появились ошибки в тестах
+
+5. 11 march (15 / 15 success)
+Обновлены вызовы функций в методах тестов и заменена структура путей для тестовых файлов.
 
 ## Authors
 Миннигалимов Рамиль <br>
