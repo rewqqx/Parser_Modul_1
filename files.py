@@ -4,33 +4,37 @@ import os
 import aspose.words as aw
 
 import json
+from pathlib import Path
 
 
-def pdf2html(path_to_file, file):
-    doc = aw.Document(f"{path_to_file}/{file}.pdf")
-    doc.save(f"{path_to_file}/{file}.html")
-    file = open(f"{path_to_file}/{file}.html")
-    return clean_ad(file.read())
+def pdf2html(filename: str | Path):
+    filename = Path(filename)
+    doc = aw.Document(str(filename.with_suffix(".pdf")))
+    doc.save(str(filename.with_suffix(".html")))
+    with open(filename.with_suffix(".html"), "r", encoding='utf-8') as f:
+        return clean_ad(f.read())
 
 
-def doc2html(path_to_file, file):
-    doc = aw.Document(f"{path_to_file}/{file}.doc")
-    doc.save(f"{path_to_file}/{file}.html")
-    file = open(f"{path_to_file}/{file}.html")
-    return clean_ad(file.read())
+def doc2html(filename: str | Path):
+    filename = Path(filename)
+    doc = aw.Document(str(filename.with_suffix(".doc")))
+    doc.save(str(filename.with_suffix(".html")))
+    with open(filename.with_suffix(".html"), "r", encoding='utf-8') as f:
+        return clean_ad(f.read())
 
 
-def djvu2txt(path_to_file, file):
-    s = f"djvused {path_to_file}//{file}.djvu -e print-pure-txt > {path_to_file}//{file}.txt"
+def djvu2txt(filename: str | Path):
+    filename = Path(filename)
+    s = f"djvused {filename.with_suffix('.djvu')} -e print-pure-txt > {filename.with_suffix('.txt')}"
     os.system(s)
-    f = open(f"{path_to_file}//{file}.txt")
-    txt = f.read()
-    return txt
+    with open(filename.with_suffix(".txt"), "r") as f:
+        return clean_ad(f.read())
 
 
-def txt2json(text, path_to_file, file):
+def txt2json(text, filename: str | Path):
+    filename = Path(filename)
     json_data = {"raw_text": text}
-    with open(f"{path_to_file}/{file}.json", "w", encoding='utf-8') as f:
+    with open(filename.with_suffix(".json"), "w", encoding='utf-8') as f:
         json.dump(json_data, f)
 
 
