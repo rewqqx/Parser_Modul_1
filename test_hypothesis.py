@@ -2,6 +2,7 @@ import random
 
 import filecmp
 import aspose.words as aw
+from pathlib import Path
 
 import unittest
 from hypothesis import given, settings
@@ -39,10 +40,10 @@ class StaffTestCases(unittest.TestCase):
 
 
 class PdfTestCases(unittest.TestCase):
-    base_file_name = '../test/test_files/test_pdf.pdf'
-    expected_file_name = '../test/test_files/expected_pdf.html'
+    base_file_name = './test_files/test_pdf.pdf'
+    expected_file_name = './test_files/expected_pdf.html'
 
-    empty_text_file_name = '../test/test_files/empty_pdf.pdf'
+    empty_text_file_name = './test_files/empty_pdf.pdf'
 
     @given(st.just(base_file_name))
     @settings(deadline=None)
@@ -57,29 +58,24 @@ class PdfTestCases(unittest.TestCase):
     @given(st.just(empty_text_file_name))
     @settings(deadline=None)
     def test_empty_file_empty_content(self, test_file_name):
-        border = test_file_name.rfind('/')
-        border_dot = test_file_name.rfind('.')
-        parsed_name = [test_file_name[0:border], test_file_name[-(len(test_file_name) - border):border_dot]]
-        html = HTMLparser(pdf2html(parsed_name[0], parsed_name[1]))
+        html = HTMLparser(pdf2html(test_file_name))
         self.assertEqual(html.clean_text.replace('\xa0', ''), '')
 
     @given(st.just(base_file_name))
     @settings(deadline=None)
     def test_correct_processing(self, test_file_name):
-        border = test_file_name.rfind('/')
-        border_dot = test_file_name.rfind('.')
-        parsed_name = [test_file_name[0:border], test_file_name[-(len(test_file_name) - border):border_dot]]
-        HTMLparser(pdf2html(parsed_name[0], parsed_name[1]))
+        HTMLparser(pdf2html(test_file_name))
 
-        result = filecmp.cmp(parsed_name[0] + '/' + parsed_name[1] + '.html', self.expected_file_name)
+        filename = Path(test_file_name)
+        result = filecmp.cmp(str(filename.with_suffix(".html")), self.expected_file_name)
         self.assertTrue(result)
 
 
 class DocTestCases(unittest.TestCase):
-    base_file_name = '../test/test_files/test_doc.doc'
-    expected_file_name = '../test/test_files/expected_doc.html'
+    base_file_name = './test_files/test_doc.doc'
+    expected_file_name = './test_files/expected_doc.html'
 
-    empty_text_file_name = '../test/test_files/empty_doc.doc'
+    empty_text_file_name = './test_files/empty_doc.doc'
 
     @given(st.just(base_file_name))
     @settings(deadline=None)
@@ -94,27 +90,22 @@ class DocTestCases(unittest.TestCase):
     @given(st.just(empty_text_file_name))
     @settings(deadline=None)
     def test_empty_file_empty_content(self, test_file_name):
-        border = test_file_name.rfind('/')
-        border_dot = test_file_name.rfind('.')
-        parsed_name = [test_file_name[0:border], test_file_name[-(len(test_file_name) - border):border_dot]]
-        html = HTMLparser(doc2html(parsed_name[0], parsed_name[1]))
+        html = HTMLparser(doc2html(test_file_name))
         self.assertEqual(html.clean_text.replace('\xa0', ''), '')
 
     @given(st.just(base_file_name))
     @settings(deadline=None)
     def test_correct_processing(self, test_file_name):
-        border = test_file_name.rfind('/')
-        border_dot = test_file_name.rfind('.')
-        parsed_name = [test_file_name[0:border], test_file_name[-(len(test_file_name) - border):border_dot]]
-        HTMLparser(doc2html(parsed_name[0], parsed_name[1]))
+        HTMLparser(doc2html(test_file_name))
 
-        result = filecmp.cmp(parsed_name[0] + '/' + parsed_name[1] + '.html', self.expected_file_name)
+        filename = Path(test_file_name)
+        result = filecmp.cmp(str(filename.with_suffix(".html")), self.expected_file_name)
         self.assertTrue(result)
 
 
 class DjvuTestCases(unittest.TestCase):
-    base_file_name = '../test/test_files/test_djvu.djvu'
-    expected_file_name = '../test/test_files/expected_djvu.txt'
+    base_file_name = './test_files/test_djvu.djvu'
+    expected_file_name = './test_files/expected_djvu.txt'
 
     @given(st.just(base_file_name))
     @settings(deadline=None)
@@ -124,18 +115,16 @@ class DjvuTestCases(unittest.TestCase):
     @given(st.just(base_file_name))
     @settings(deadline=None)
     def test_correct_processing(self, test_file_name):
-        border = test_file_name.rfind('/')
-        border_dot = test_file_name.rfind('.')
-        parsed_name = [test_file_name[0:border], test_file_name[-(len(test_file_name) - border):border_dot]]
-        djvu2txt(parsed_name[0], parsed_name[1])
+        djvu2txt(test_file_name)
 
-        result = filecmp.cmp(parsed_name[0] + '/' + parsed_name[1] + '.txt', self.expected_file_name)
+        filename = Path(test_file_name)
+        result = filecmp.cmp(str(filename.with_suffix(".txt")), self.expected_file_name)
         self.assertTrue(result)
 
 
 class HtmlTestCases(unittest.TestCase):
-    base_file_name = '../test/test_files/test_html.html'
-    empty_text_file_name = '../test/test_files/empty_html.html'
+    base_file_name = './test_files/test_html.html'
+    empty_text_file_name = './test_files/empty_html.html'
 
     @given(st.just(base_file_name))
     @settings(deadline=None)
